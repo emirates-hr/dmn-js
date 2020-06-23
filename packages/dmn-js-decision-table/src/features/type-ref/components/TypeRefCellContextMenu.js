@@ -23,6 +23,7 @@ export default class TypeRefCellContextMenu extends Component {
     this._modeling = context.injector.get('modeling');
   }
 
+
   onTypeChange = (value) => {
     const element = this.getElement();
 

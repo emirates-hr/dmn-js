@@ -47,11 +47,16 @@ export default class InputEditor extends Component {
     };
 
     this.handleInputVariableChange = (value) => {
+      this.setExpressionLanguage(value);
+    };
 
-      // default to <undefined> for empty string
-      var inputVariable = value || undefined;
+    this.handleInputSource = (value) => {
+      var inputSource = value || undefined;
+      this.handleChange({ inputSource });
+    };
 
-      this.handleChange({ inputVariable });
+    this.handleInputProperty = (value) => {
+      this.handleChange({ inputProperty: value });
     };
 
   }
@@ -69,9 +74,13 @@ export default class InputEditor extends Component {
     const {
       expressionLanguage,
       expressionLanguages,
+      inputSources = [],
+      inputSource,
       inputVariable,
       label,
-      text
+      text,
+      inputProperties=[],
+      inputProperty
     } = this.props;
 
     return (
@@ -88,7 +97,35 @@ export default class InputEditor extends Component {
         <div className="dms-form-control">
           <label className="dms-label">
             {
-              this.translate('Expression')
+              this.translate('Input Source')
+            }
+          </label>
+
+          <InputSelect
+            className="ref-input-source"
+            value={ inputSource || '' }
+            onChange={ this.handleInputSource }
+            options={ inputSources } />
+        </div>
+
+        <div className="dms-form-control">
+          <label className="dms-label">
+            {
+              this.translate('Input Property')
+            }
+          </label>
+
+          <InputSelect
+            className="ref-input-proerty"
+            value={ inputProperty || '' }
+            onChange={ this.handleInputProperty }
+            options={ inputProperties } />
+        </div>
+
+        <div className="dms-form-control">
+          <label className="dms-label">
+            {
+              this.translate('Expression Field')
             }
           </label>
 

@@ -1,7 +1,7 @@
 {
-  "name": "dmn-js",
+  "name": "@emirateshr/dmn-js",
   "description": "A dmn toolkit and web modeler",
-  "version": "8.4.0-alpha.0",
+  "version": "8.4.1-alpha.0",
   "scripts": {
     "test": "karma start",
     "dev": "npm run test -- --no-single-run --auto-watch",
@@ -23,8 +23,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/dmn-js",
+    "url": "https://github.com/emirates-hr/dmn-js",
     "directory": "packages/dmn-js"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
   },
   "license": "SEE LICENSE IN LICENSE",
   "keywords": [

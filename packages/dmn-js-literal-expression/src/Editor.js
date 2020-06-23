@@ -1,4 +1,5 @@
 import ExpressionLanguagesModule from 'dmn-js-shared/lib/features/expression-languages';
+import InputSourceModule from 'dmn-js-shared/lib/features/input-sources';
 
 import Viewer from './Viewer';
 
@@ -24,7 +25,8 @@ export default class Editor extends Viewer {
       LiteralExpressionPropertiesEditorModule,
       ModelingModule,
       ExpressionLanguagesModule,
-      TextareaEditorComponent
+      TextareaEditorComponent,
+      InputSourceModule
     ];
   }
 }
