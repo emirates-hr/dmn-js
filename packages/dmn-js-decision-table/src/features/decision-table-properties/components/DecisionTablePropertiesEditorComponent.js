@@ -1,7 +1,5 @@
 import { Component } from 'inferno';
 
-import { validateId } from 'dmn-js-shared/lib/util/IdsUtil';
-
 import EditableComponent from 'dmn-js-shared/lib/components/EditableComponent';
 
 import {
@@ -21,13 +19,6 @@ export default class DecisionTablePropertiesComponent extends Component {
   }
 
   componentWillMount() {
-    const {
-      injector
-    } = this.context;
-
-    this.sheet = injector.get('sheet');
-    this.modeling = injector.get('modeling');
-
     this.setupChangeListeners({ bind: this.getBusinessObject().id });
   }
 
@@ -60,29 +51,15 @@ export default class DecisionTablePropertiesComponent extends Component {
     this.modeling.editDecisionTableName(name);
   }
 
-  setDecisionTableId = (id) => {
-
-    var oldId = this.getBusinessObject().id;
-
-    if (oldId === id) {
-      return;
-    }
-
-    this.modeling.editDecisionTableId(id);
-  }
-
-  validateId = (id) => {
-    var bo = this.getBusinessObject();
-    return validateId(bo, id);
-  }
-
   render() {
     const bo = this.getBusinessObject();
 
-    const { id, name } = bo;
+    const { name } = bo;
+
+    const HitPolicy = this.components.getComponent('hit-policy') || NullComponent;
 
     return (
-      <header className="decision-table-properties">
+      <div className="decision-table-properties">
         <DecisionTableName
           className="decision-table-name"
           value={ name }
@@ -91,16 +68,9 @@ export default class DecisionTablePropertiesComponent extends Component {
           elementId={ '__decisionProperties_name' }
           coords={ '0:__decisionProperties' }
         />
-        <DecisionTableId
-          className="decision-table-id"
-          value={ id }
-          ctrlForNewline={ true }
-          validate={ this.validateId }
-          onChange={ this.setDecisionTableId }
-          elementId={ '__decisionProperties_id' }
-          coords={ '1:__decisionProperties' }
-        />
-      </header>
+        <span className="decision-table-header-separator" />
+        <HitPolicy />
+      </div>
     );
   }
 }
@@ -108,7 +78,8 @@ export default class DecisionTablePropertiesComponent extends Component {
 DecisionTablePropertiesComponent.$inject = [
   'sheet',
   'modeling',
-  'changeSupport'
+  'changeSupport',
+  'components'
 ];
 
 
@@ -122,50 +93,27 @@ class DecisionTableName extends EditableComponent {
 
   render() {
 
+    const name = this.props.value;
+
     const className = classNames(
       this.getSelectionClasses(),
       this.getClassName()
     );
 
     return (
-      <h3
+      <p
         className={ className }
         data-element-id={ this.props.elementId }
         data-coords={ this.props.coords }
-        title="Decision Name"
+        title={ 'Decision Name: ' + name }
       >
         { this.getEditor() }
-      </h3>
+      </p>
     );
   }
 
 }
 
-class DecisionTableId extends EditableComponent {
-
-  constructor(props, context) {
-    super(props, context);
-
-    mixin(this, SelectionAware);
-  }
-
-  render() {
-
-    const className = classNames(
-      this.getSelectionClasses(),
-      this.getClassName()
-    );
-
-    return (
-      <h5
-        className={ className }
-        title="Decision Id"
-        data-element-id={ this.props.elementId }
-        data-coords={ this.props.coords }
-      >
-        { this.getEditor() }
-      </h5>
-    );
-  }
-
+function NullComponent() {
+  return null;
 }

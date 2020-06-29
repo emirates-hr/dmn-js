@@ -60,15 +60,23 @@ export default class OutputCell extends Component {
   }
 
   render() {
-    const output = this.props.output;
+    const {
+      output,
+      index,
+      outputsLength
+    } = this.props;
 
-    var label = output.get('label');
-    var name = output.get('name');
+    const {
+      label,
+      name,
+      outputValues,
+      typeRef
+    } = output;
 
     return (
       <th
         data-col-id={ output.id }
-        onClick={ this.onClick }
+        onDoubleClick={ this.onClick }
         onContextmenu={ this.onContextmenu }
         className="output-cell output-editor">
 
@@ -77,23 +85,39 @@ export default class OutputCell extends Component {
             type: 'cell-inner',
             context: {
               cellType: 'output-cell',
-              col: this._elementRegistry.get(output.id)
+              col: this._elementRegistry.get(output.id),
+              index,
+              outputsLength
             },
             col: output
           })
         }
 
+        <div className="clause">
+          { index === 0 ? this._translate('Then') : this._translate('And') }
+        </div>
+
         {
           label ? (
-            <span className="output-label" title={ this._translate('Output Label') }>
+            <div className="output-label" title={ this._translate('Output Label') }>
               { label }
-            </span>
+            </div>
           ) : (
-            <span className="output-name" title={ this._translate('Output Expression') }>
+            <div className="output-name" title={ this._translate('Output Name') }>
               { name || '-' }
-            </span>
+            </div>
           )
         }
+
+        <div
+          className="output-variable"
+          title={
+            outputValues && outputValues.text ? this._translate('Output Values') :
+              this._translate('Output Type')
+          }
+        >
+          { outputValues && outputValues.text || typeRef }
+        </div>
       </th>
     );
   }

@@ -12,6 +12,7 @@ import TestContainer from 'mocha-test-container-support';
 import CoreModule from 'src/core';
 import KeyboardModule from 'src/features/keyboard';
 import ModelingModule from 'src/features/modeling';
+import DecisionTableHeadModule from 'src/features/decision-table-head';
 import DecisionRulesEditorModule from 'src/features/decision-rules/editor';
 import TablePropertiesEditorModule from 'src/features/decision-table-properties/editor';
 import SelectionModule from 'table-js/lib/features/selection';
@@ -32,6 +33,7 @@ describe('features/keyboard', function() {
       CoreModule,
       ModelingModule,
       KeyboardModule,
+      DecisionTableHeadModule,
       DecisionRulesEditorModule,
       TablePropertiesEditorModule,
       SelectionModule
@@ -139,18 +141,18 @@ describe('features/keyboard', function() {
     ));
 
 
-    it('should NOT create new rule on decision id cell <ENTER>', inject(
+    it('should NOT create new rule on decision name <ENTER>', inject(
       function(cellSelection, sheet) {
 
         // given
-        const gfx = getGraphics('__decisionProperties_id', testContainer);
+        const gfx = getGraphics('__decisionProperties_name', testContainer);
         const root = sheet.getRoot();
         const rowCount = getRowCount(root);
 
         triggerMouseEvent(gfx, 'click');
 
         // assure
-        expect(cellSelection.getCellSelection()).to.equal('__decisionProperties_id');
+        expect(cellSelection.getCellSelection()).to.equal('__decisionProperties_name');
 
         // when
         triggerKeyEvent(gfx, 'keydown', {
@@ -158,7 +160,7 @@ describe('features/keyboard', function() {
         });
 
         // then
-        expect(rowCount).to.equal(getRowCount(root));
+        expect(getRowCount(root)).to.equal(rowCount);
       }
     ));
 

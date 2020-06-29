@@ -5,7 +5,6 @@
 }
 
 .dmn-decision-table-container .input-cell .input-label,
-.dmn-decision-table-container .input-cell .input-expression,
 .dmn-decision-table-container .input-cell .output-label,
 .dmn-decision-table-container .input-cell .output-name {
   display: block;
@@ -15,36 +14,12 @@
   box-sizing: border-box;
 }
 
-/** actionable icon */
-.dmn-decision-table-container .action-icon {
-  border-radius: 2px;
-  color: #52b415;
-  margin-left: 5px;
-}
-
-.dmn-decision-table-container .action-icon:before {
-  margin-left: .1em;
-  margin-right: .1em;
-}
-
-.dmn-decision-table-container .actionable:hover .action-icon {
-  background-color: #52b415;
-  color: white;
-}
-
-/** end actionable icon */
-
-
 /* basic styles */
 
 .dmn-decision-table-container {
   color: #444;
 
   max-height: 100%;
-}
-
-.dmn-decision-table-container .tjs-table {
-  min-width: 100%;
 }
 
 /* end basic styles */
@@ -86,6 +61,10 @@
   border-left: 1px solid #444;
 }
 
+.dmn-decision-table-container .tjs-table tr .annotation {
+  border-left: 3px double #444;
+}
+
 .dmn-decision-table-container th {
   min-width: 192px;
 }
@@ -95,11 +74,9 @@
   white-space: pre;
 }
 
-.dmn-decision-table-container th.hit-policy {
+.dmn-decision-table-container th.index-column {
   width: 40px;
   min-width: 40px;
-
-  vertical-align: top;
 }
 
 .dmn-decision-table-container th {
@@ -108,11 +85,6 @@
 
 .dmn-decision-table-container th.header {
   text-align: center;
-  font-weight: bold;
-}
-
-.dmn-decision-table-container th.annotation.header {
-  vertical-align: bottom;
 }
 
 .dmn-decision-table-container td.rule-index {
@@ -120,9 +92,6 @@
   padding-right: 8px;
 }
 
-.dmn-decision-table-container thead .input-expression,
-.dmn-decision-table-container thead .input-variable,
-.dmn-decision-table-container thead .output-name,
 .dmn-decision-table-container thead .type-ref,
 .dmn-decision-table-container .script-editor {
   font-family: monospace;
@@ -201,51 +170,162 @@
   position: relative;
 }
 
+/* decision table header */
+.dmn-decision-table-container .decision-table-header {
+  text-align: left;
+
+  padding: 10px;
+}
+
+
+.dmn-decision-table-container .decision-table-header * {
+  vertical-align: middle;
+}
+
 /* decision table properties */
-.dmn-decision-table-container .decision-table-properties {
-  color: #444;
-  background-color: #fff;
-  display: inline-block;
-  border: solid 1px #444;
-  margin-bottom: -1px;
-  position: relative;
-  min-width: 100px;
-  max-width: 50%;
-}
-
-.dmn-decision-table-container .decision-table-name,
-.dmn-decision-table-container .decision-table-id {
-  margin: 0;
-  padding: 3px 6px;
-  text-align: center;
-  white-space: pre;
-}
-
-.dmn-decision-table-container .decision-table-id.invalid {
-  background: #f4cecd;
-  color: #c9302c;
-}
-
 .dmn-decision-table-container .decision-table-name {
-  font-size: 24px;
-  line-height: 30px;
-  padding: .3em;
-  font-weight: bold;
+  display: inline-block;
+  margin: 0;
+
+  max-width: 600px;
+
+  font-size: 21px;
+  font-weight: normal;
 }
 
-.dmn-decision-table-container .decision-table-id {
-  border-top: 1px solid #444;
-  font-family: monospace;
-  font-size: 18px;
+.dmn-decision-table-container .decision-table-name.focussed {
+  max-width: unset;
+}
+
+.dmn-decision-table-container .decision-table-name:not(.editable),
+.dmn-decision-table-container .decision-table-name .content-editable {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dmn-decision-table-container .decision-table-header-separator {
+  display: inline-block;
+  height: 32px;
+
+  border-left: 2px solid #bfbfbf;
+
+  margin: 0 10px;
+}
+
+.dmn-decision-table-container .hit-policy-value::after {
+  content: '—';
+  margin-left: 5px;
+}
+
+.dmn-decision-table-container .hit-policy-explanation {
+  margin-left: 5px;
+  color: #545454;
 }
 
 /* end decision table properties */
 
+/* input and output headers */
+.dmn-decision-table-container thead .input-cell,
+.dmn-decision-table-container thead .output-cell {
+  max-width: 192px;
+
+  text-align: left;
+}
+
+.dmn-decision-table-container thead .input-label,
+.dmn-decision-table-container thead .input-expression,
+.dmn-decision-table-container thead .output-label,
+.dmn-decision-table-container thead .output-name {
+  margin: 16px 6px;
+
+  font-size: 16px;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dmn-decision-table-container thead .input-variable,
+.dmn-decision-table-container thead .output-variable {
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dmn-decision-table-container thead .input-cell .clause,
+.dmn-decision-table-container thead .output-cell .clause,
+.dmn-decision-table-container thead .input-cell .input-variable,
+.dmn-decision-table-container thead .output-cell .output-variable {
+  font-size: 12px;
+
+  color: #545454;
+}
+
+.dmn-decision-table-container thead .input-cell .clause,
+.dmn-decision-table-container thead .output-cell .clause {
+  text-align: left;
+}
+
+.dmn-decision-table-container thead .input-variable,
+.dmn-decision-table-container thead .output-variable {
+  text-align: right;
+}
+
+
+/** actionable icon */
+.dmn-decision-table-container .action-icon {
+  border-radius: 2px;
+  color: #52b415;
+  margin-left: 5px;
+}
+
+.dmn-decision-table-container .action-icon:before {
+  margin-left: .1em;
+  margin-right: .1em;
+}
+
+.dmn-decision-table-container .actionable:hover .action-icon {
+  background-color: #52b415;
+  color: white;
+}
+
+.dmn-decision-table-container .create-inputs .action-icon,
+.dmn-decision-table-container .add-input .action-icon,
+.dmn-decision-table-container .add-output .action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  border-radius: 50%;
+
+  color: white;
+  background-color: #545454;
+}
+
+.dmn-decision-table-container .input-editor .add-input,
+.dmn-decision-table-container .output-editor .add-output {
+  position: absolute;
+
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+
+  z-index: 1;
+
+  padding: 8px;
+}
+
+/** end actionable icon */
+
 /* view drd */
 .dmn-decision-table-container .view-drd {
-  float: right;
-
-  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .dmn-decision-table-container .view-drd .view-drd-button {
@@ -270,13 +350,7 @@
 /* powered by */
 .dmn-decision-table-container .powered-by-logo {
   float: right;
-  width: 38px;
   z-index: 10;
-  cursor: pointer;
-}
-
-.dmn-decision-table-container .powered-by-logo .logo {
-  width: 100%;
 }
 
 .dmn-decision-table-container .powered-by-overlay {
@@ -293,19 +367,23 @@
 }
 
 .dmn-decision-table-container .powered-by-overlay .powered-by-overlay-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  max-width: 260px;
+
   background: #fff;
-  padding: 8px;
+  color: #444;
   border: solid 1px #CCC;
   border-radius: 2px;
   font-size: 14px;
-  color: #444;
-  display: flex;
-  flex-direction: row;
-  max-width: 260px;
 }
 
-.dmn-decision-table-container .powered-by-overlay .powered-by-overlay-content div:first-child {
-  margin-right: 8px;
+.dmn-decision-table-container .powered-by-overlay .powered-by-overlay-content .logo {
+  margin: 15px 20px 15px 10px;
+
+  color: #404040;
 }
 
 /* end powered by */
@@ -353,11 +431,6 @@
   margin-left: 3px;
 }
 
-.dms-badge.dmn-variable-name {
-  background: #9e9e9e;
-  color: white;
-}
-
 .dms-badge.dmn-expression-language {
   background: rgba(84, 146, 250, 0.3);
   color: white;
@@ -376,7 +449,6 @@
   display: inline-block;
 }
 
-.dmn-decision-table-container .input-editor .dmn-variable-name,
 .dmn-decision-table-container .input-editor .dmn-expression-language {
   margin-top: 4px;
   display: inline-block;

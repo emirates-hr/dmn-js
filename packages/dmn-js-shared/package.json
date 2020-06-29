@@ -1,7 +1,7 @@
 {
-  "name": "dmn-js-shared",
+  "name": "@emirates-hr/dmn-js-shared",
   "description": "Shared components used by dmn-js",
-  "version": "8.3.1",
+  "version": "8.6.0",
   "scripts": {
     "test": "karma start",
     "build": "del-cli lib && babel -s -q -d lib src",
@@ -11,8 +11,11 @@
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/dmn-js",
+    "url": "https://github.com/emirates-hr/dmn-js",
     "directory": "packages/dmn-js-shared"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {

@@ -6,12 +6,53 @@ import { isInput } from 'dmn-js-shared/lib/util/ModelUtil';
 
 
 export default class ExpressionLanguage {
-  constructor(components, elementRegistry, modeling, expressionLanguages, translate) {
+  constructor(components, elementRegistry, modeling, expressionLanguages, translate, contextMenu) {
     this._modeling = modeling;
     this._translate = translate;
 
     components.onGetComponent('context-menu-cell-additional', (context = {}) => {
       if (context.contextMenuType && context.contextMenuType === 'context-menu') {
+
+        const {
+          event,
+          id
+        } = context;
+
+        if (!id) {
+          return;
+        }
+
+        const element = elementRegistry.get(id);
+
+        // element might not be in element registry (e.g. cut)
+        if (!element) {
+          return;
+        }
+
+        const openMenu = clickEvent => {
+          contextMenu.open({
+            x: (event || clickEvent).pageX,
+            y: (event || clickEvent).pageY
+          }, {
+            contextMenuType: 'expression-language',
+            id
+          });
+        };
+
+        return (
+          <div
+            className="context-menu-group-entry"
+            onClick={ openMenu }
+          >
+            { this._translate('Change Cell Expression Language') }
+          </div>
+        );
+
+      }
+    });
+
+    components.onGetComponent('context-menu', (context = {}) => {
+      if (context.contextMenuType && context.contextMenuType === 'expression-language') {
 
         const { id } = context;
 
@@ -31,24 +72,26 @@ export default class ExpressionLanguage {
 
         const options = expressionLanguages.getAll();
 
-        return (
+        return () => (
           <div
-            className="context-menu-group-entry context-menu-entry-set-expression-language">
-            <div>
-              <span className="context-menu-group-entry-icon dmn-icon-file-code"></span>
-              { this._translate('Expression Language') }
+            className="context-menu-flex">
+            <div className="context-menu-group">
+              <div className="context-menu-group-entry context-menu-entry-set-expression-language">
+                <div>
+                  { this._translate('Expression Language') }
+                </div>
+
+                <InputSelect
+                  className="expression-language"
+                  onChange={ value => this.onChange(element, value) }
+                  options={ options }
+                  value={ expressionLanguage } />
+              </div>
             </div>
-
-            <InputSelect
-              className="expression-language"
-              onChange={ value => this.onChange(element, value) }
-              options={ options }
-              value={ expressionLanguage } />
-
           </div>
         );
-
       }
+
     });
   }
 
@@ -62,5 +105,6 @@ ExpressionLanguage.$inject = [
   'elementRegistry',
   'modeling',
   'expressionLanguages',
-  'translate'
+  'translate',
+  'contextMenu'
 ];

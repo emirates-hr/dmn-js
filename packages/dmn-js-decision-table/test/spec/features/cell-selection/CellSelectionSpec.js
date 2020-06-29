@@ -14,10 +14,10 @@ import {
 } from 'src/features/cell-selection/CellSelectionUtil';
 
 import CoreModule from 'src/core';
+import DecisionTableHead from 'src/features/decision-table-head';
 import CellSelectionModule from 'src/features/cell-selection';
 import DecisionRulesModule from 'src/features/decision-rules';
 import DecisionRulesEditorModule from 'src/features/decision-rules/editor';
-import PropertiesModule from 'src/features/decision-table-properties';
 import PropertiesEditorModule from 'src/features/decision-table-properties/editor';
 import ModelingModule from 'src/features/modeling';
 
@@ -29,11 +29,11 @@ describe('features/cell-selection', function() {
   beforeEach(bootstrapModeler(testDiagram, {
     modules: [
       CoreModule,
+      DecisionTableHead,
+      PropertiesEditorModule,
       CellSelectionModule,
       DecisionRulesModule,
       DecisionRulesEditorModule,
-      PropertiesModule,
-      PropertiesEditorModule,
       ModelingModule
     ]
   }));
@@ -50,16 +50,6 @@ describe('features/cell-selection', function() {
 
         // then
         expect(hasFocus('__decisionProperties_name')).to.be.true;
-      }));
-
-
-      it('id', inject(function(cellSelection) {
-
-        // when
-        click('__decisionProperties_id');
-
-        // then
-        expect(hasFocus('__decisionProperties_id')).to.be.true;
       }));
 
     });
@@ -178,21 +168,6 @@ describe('features/cell-selection', function() {
         currentSelection: 'outputEntry5',
         direction: 'right',
         expectedSelection: 'outputEntry6'
-      }));
-
-
-      it('in decision properties', inject(function(cellSelection) {
-
-        // given
-        click('__decisionProperties_id');
-
-        // when
-        const changed = cellSelection.selectCell('above');
-
-        // then
-        expect(hasFocus('__decisionProperties_name')).to.be.true;
-
-        expect(changed).to.be.true;
       }));
 
     });

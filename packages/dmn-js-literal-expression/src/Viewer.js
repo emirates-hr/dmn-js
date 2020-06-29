@@ -21,6 +21,7 @@ export default class Viewer extends BaseViewer {
 
   constructor(options = {}) {
     const container = Viewer._createContainer();
+    console.log(options);
 
     super(assign(options, {
       renderer: {

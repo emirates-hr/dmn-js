@@ -66,39 +66,7 @@
 
 .dmn-decision-table-container .context-menu .context-menu-flex {
   display: flex;
-}
-
-.dmn-decision-table-container .context-menu.vertical .context-menu-flex {
   flex-direction: column;
-}
-
-.dmn-decision-table-container .context-menu.horizontal .context-menu-flex {
-  flex-direction: row;
-}
-
-.dmn-decision-table-container .context-menu.vertical .context-menu-group {
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-  border-bottom: solid 1px #ccc;
-}
-
-.dmn-decision-table-container .context-menu.vertical .context-menu-group:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.dmn-decision-table-container .context-menu.horizontal .context-menu-group {
-  border-right: solid 1px #ccc;
-}
-
-.dmn-decision-table-container .context-menu.horizontal .context-menu-group:last-child {
-  border-right: none;
-}
-
-.dmn-decision-table-container .context-menu .context-menu-group .context-menu-group-title {
-  font-weight: bold;
-  color: #444;
-  margin: 6px 9px 6px 9px;
 }
 
 .dmn-decision-table-container .context-menu .context-menu-group .context-menu-group-entry {
@@ -106,18 +74,18 @@
   flex-direction: row;
   align-items: stretch;
   width: 100%;
+  padding: 8px 16px;
+
   white-space: nowrap;
-  padding: 4px 9px 4px 9px;
-  cursor: pointer;
+}
+
+.dmn-decision-table-container .context-menu-group .context-menu-group-entry:hover {
+  background-color: #efefef;
 }
 
 .dmn-decision-table-container .context-menu .context-menu-group .context-menu-group-entry.disabled {
   pointer-events: none;
   color: #ccc;
-}
-
-.dmn-decision-table-container .context-menu .context-menu-group .context-menu-group-entry:hover {
-  color: #52b415;
 }
 
 .dmn-decision-table-container .context-menu .context-menu-group .context-menu-group-entry .context-menu-group-entry-icon {
@@ -131,9 +99,72 @@
   margin: 0;
 }
 
+.dmn-decision-table-container .context-menu-group:not(:last-child):after {
+  content: '';
+
+  display: block;
+
+  margin: 0 8px;
+  border-bottom: 1px solid #cdcdcd;
+  height: 1px;
+}
+
+/* input/output editor */
+
+.dmn-decision-table-container .context-menu .context-menu-container.input-edit,
+.dmn-decision-table-container .context-menu .context-menu-container.output-edit {
+  margin: 34px 10px 10px 10px;
+}
+
+.dmn-decision-table-container .context-menu .context-menu-container.type-ref-edit,
+.dmn-decision-table-container .context-menu .context-menu-container.allowed-values-edit {
+  margin: 10px;
+}
+
+.dmn-decision-table-container .dms-output-label,
+.dmn-decision-table-container .dms-input-label {
+  padding-right: 30px;
+  padding-left: 0;
+
+  border: none;
+
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.dmn-decision-table-container .dms-form-control:first-child {
+  padding-top: 0;
+}
+
+.dmn-decision-table-container .dms-form-control {
+  padding: 9px 0;
+}
+
+.dmn-decision-table-container .dms-form-control .dms-label {
+  display: block;
+  margin: unset;
+  margin-bottom: 6px;
+
+  color: #909090;
+  font-weight: normal;
+}
+
+.dmn-decision-table-container .dms-form-control .dms-input {
+  padding-right: 24px;
+  border-radius: 3px;
+}
+
+.dmn-decision-table-container .dms-form-control .dms-list-component {
+  max-width: 179px;
+}
+
 /* expression language */
 .dmn-decision-table-container .context-menu .context-menu-group .context-menu-entry-set-expression-language {
   flex-direction: column;
+}
+
+.dmn-decision-table-container .context-menu .context-menu-group .context-menu-entry-set-expression-language:hover {
+  background-color: unset;
 }
 
 .dmn-decision-table-container .context-menu .context-menu-group .context-menu-entry-set-expression-language .expression-language {
@@ -153,8 +184,8 @@
 
 .dmn-decision-table-container th .dmn-icon-drag {
   position: absolute;
-  left: 4px;
-  top: 50%;
+  right: 4px;
+  top: 10px;
   transform: translateY(-50%);
 }
 

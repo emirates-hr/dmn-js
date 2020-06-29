@@ -1,7 +1,7 @@
 {
-  "name": "dmn-js-decision-table",
+  "name": "@emirates-hr/dmn-js-decision-table",
   "description": "A decision table view for dmn-js",
-  "version": "8.3.1",
+  "version": "8.6.0",
   "scripts": {
     "test": "karma start",
     "build": "del-cli lib && babel -s -q -d lib src",
@@ -11,8 +11,11 @@
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/dmn-js",
+    "url": "https://github.com/emirates-hr/dmn-js",
     "directory": "packages/dmn-js-decision-table"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "license": "SEE LICENSE IN LICENSE",
   "keywords": [
@@ -22,13 +25,13 @@
     "decision table"
   ],
   "devDependencies": {
-    "dmn-font": "^0.4.1",
+    "dmn-font": "^0.5.0",
     "inferno-test-utils": "~5.0.5"
   },
   "dependencies": {
     "css.escape": "^1.5.1",
     "diagram-js": "^6.6.1",
-    "dmn-js-shared": "^8.3.1",
+    "dmn-js-shared": "^8.4.0-alpha.0",
     "escape-html": "^1.0.3",
     "inferno": "~5.0.5",
     "min-dash": "^3.0.0",

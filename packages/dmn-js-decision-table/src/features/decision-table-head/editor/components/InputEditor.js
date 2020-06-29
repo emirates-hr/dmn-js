@@ -17,13 +17,6 @@ export default class InputEditor extends Component {
       this.handleChange({ expressionLanguage });
     };
 
-    this.makeScript = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.setExpressionLanguage(defaultExpressionLanguage);
-    };
-
     this.handleValue = (text) => {
 
       let { expressionLanguage } = this.props;
@@ -54,11 +47,16 @@ export default class InputEditor extends Component {
     };
 
     this.handleInputVariableChange = (value) => {
+      this.setExpressionLanguage(value);
+    };
 
-      // default to <undefined> for empty string
-      var inputVariable = value || undefined;
+    this.handleInputSource = (value) => {
+      var inputSource = value || undefined;
+      this.handleChange({ inputSource });
+    };
 
-      this.handleChange({ inputVariable });
+    this.handleInputProperty = (value) => {
+      this.handleChange({ inputProperty: value });
     };
 
   }
@@ -74,106 +72,90 @@ export default class InputEditor extends Component {
   render() {
 
     const {
-      defaultExpressionLanguage,
       expressionLanguage,
       expressionLanguages,
+      inputSources = [],
+      inputSource,
       inputVariable,
       label,
-      text
+      text,
+      inputProperties=[],
+      inputProperty
     } = this.props;
 
-    const editScript = expressionLanguage || isMultiLine(text);
-
     return (
-      <div className="dms-container ref-input-editor">
+      <div className="context-menu-container ref-input-editor input-edit">
 
-        <p className="dms-fill-row">
+        <div className="dms-form-control">
+          <ContentEditable
+            className="dms-input-label"
+            value={ label || '' }
+            singleLine
+            onInput={ this.handleLabelChange } />
+        </div>
+
+        <div className="dms-form-control">
           <label className="dms-label">
             {
-              this.translate('Input Label')
+              this.translate('Input Source')
             }
           </label>
 
-          <Input
-            className="ref-input-label"
-            value={ label || '' }
-            onInput={ this.handleLabelChange } />
-        </p>
+          <InputSelect
+            className="ref-input-source"
+            value={ inputSource || '' }
+            onChange={ this.handleInputSource }
+            options={ inputSources } />
+        </div>
 
-        <hr className="dms-hrule" />
+        <div className="dms-form-control">
+          <label className="dms-label">
+            {
+              this.translate('Input Property')
+            }
+          </label>
 
-        <h4 className="dms-heading">
-          {
-            this.translate('Input Expression')
-          }
-        </h4>
+          <InputSelect
+            className="ref-input-proerty"
+            value={ inputProperty || '' }
+            onChange={ this.handleInputProperty }
+            options={ inputProperties } />
+        </div>
 
-        <ContentEditable
-          placeholder="enter expression"
-          ctrlForNewline={ true }
-          className={
-            [
-              'ref-text',
-              'dms-input',
-              editScript ? 'dms-script-input script-editor' : '',
-              'dms-fit-row'
-            ].join(' ')
-          }
-          onInput={ this.handleValue }
-          value={ text || '' } />
+        <div className="dms-form-control">
+          <label className="dms-label">
+            {
+              this.translate('Expression Field')
+            }
+          </label>
 
-        {
-          !editScript && (
+          <ContentEditable
+            placeholder="enter expression"
+            className={
+              [
+                'ref-text',
+                'dms-input'
+              ].join(' ')
+            }
+            onInput={ this.handleValue }
+            value={ text || '' } />
+        </div>
 
-            // TODO @barmac: Replace with proper i18n tooling
-            <p className="dms-hint">
-              {
-                this.translate('Enter simple')
-              }
-              <code>{ defaultExpressionLanguage.label }</code>
-              {
-                this.translate('expression or')
-              }
-              <button type="button"
-                className="ref-make-script"
-                onClick={ this.makeScript }>
-                {
-                  this.translate('change to script.')
-                }
-              </button>.
-            </p>
-          )
-        }
+        <div className="dms-form-control">
+          <label className="dms-label">
+            {
+              this.translate('Expression Language')
+            }
+          </label>
 
-        {
-          editScript && (
-            <p className="dms-hint">
-              {
-                this.translate('Enter script.')
-              }
-            </p>
-          )
-        }
+          <InputSelect
+            className="ref-language"
+            value={ expressionLanguage || '' }
+            onChange={ this.handleLanguageChange }
+            options={ expressionLanguages } />
+        </div>
 
-        {
-          editScript && (
-            <p>
-              <label className="dms-label">
-                {
-                  this.translate('Expression Language')
-                }
-              </label>
-
-              <InputSelect
-                className="ref-language"
-                value={ expressionLanguage || '' }
-                onChange={ this.handleLanguageChange }
-                options={ expressionLanguages } />
-            </p>
-          )
-        }
-
-        <p className="dms-fill-row">
+        <div className="dms-form-control">
           <label className="dms-label">
             {
               this.translate('Input Variable')
@@ -185,13 +167,11 @@ export default class InputEditor extends Component {
             value={ inputVariable || '' }
             onInput={ this.handleInputVariableChange }
             placeholder={ this.translate('cellInput') } />
-        </p>
+        </div>
       </div>
     );
   }
 }
-
-
 
 function isMultiLine(text) {
   return text && text.split(/\n/).length > 1;

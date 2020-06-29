@@ -44,24 +44,16 @@ export default class AddOutput extends Component {
   }
 
   render() {
-
-    const {
-      businessObject
-    } = this.getRoot();
-
-    const colspan = businessObject.output.length;
-
     return (
-      <th
-        className="output-cell outputs-label add-output actionable header"
+      <div
         onClick={ this.handleClick }
-        colspan={ colspan }
+        className="add-output actionable"
+        title={ this._translate('Add Input') }
       >
-        { this._translate('Output') } <span
-          className="add-output dmn-icon-plus action-icon"
-          title={ this._translate('Add Output') }
-        ></span>
-      </th>
+        <span
+          className="dmn-icon-plus action-icon"
+        />
+      </div>
     );
   }
 
