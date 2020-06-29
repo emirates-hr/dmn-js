@@ -57,9 +57,9 @@
     "rollup-plugin-uglify": "^6.0.0"
   },
   "dependencies": {
-    "dmn-js-decision-table": "^8.4.0-alpha.0",
-    "dmn-js-drd": "^8.4.0-alpha.0",
-    "dmn-js-literal-expression": "^8.4.0-alpha.0",
-    "dmn-js-shared": "^8.4.0-alpha.0"
+    "@emirates-hr/dmn-js-decision-table": "^8.6.0",
+    "@emirates-hr/dmn-js-drd": "^8.6.0",
+    "@emirates-hr/dmn-js-literal-expression": "^8.6.0",
+    "@emirates-hr/dmn-js-shared": "^8.6.0"
   }
 }
