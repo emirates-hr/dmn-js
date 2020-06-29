@@ -1,6 +1,6 @@
 {
   "name": "@emirates-hr/dmn-js-build",
-  "version": "2.0.1",
+  "version": "8.5.1",
   "scripts": {
     "all": "run-s lint build test",
     "build-distro": "lerna run prepublishOnly --sort",
