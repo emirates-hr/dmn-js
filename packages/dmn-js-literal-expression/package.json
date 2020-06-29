@@ -1,7 +1,7 @@
 {
-  "name": "@emirateshr/dmn-js-literal-expression",
+  "name": "@emirates-hr/dmn-js-literal-expression",
   "description": "A literal expression view for dmn-js",
-  "version": "8.5.0-alpha.0",
+  "version": "8.6.0",
   "scripts": {
     "test": "karma start",
     "build": "del-cli lib && babel -s -q -d lib src",

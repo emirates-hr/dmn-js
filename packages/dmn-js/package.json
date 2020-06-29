@@ -1,7 +1,7 @@
 {
-  "name": "@emirateshr/dmn-js",
+  "name": "@emirates-hr/dmn-js",
   "description": "A dmn toolkit and web modeler",
-  "version": "8.5.0-alpha.0",
+  "version": "8.6.0",
   "scripts": {
     "test": "karma start",
     "dev": "npm run test -- --no-single-run --auto-watch",
