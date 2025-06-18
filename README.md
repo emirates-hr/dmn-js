@@ -1,3 +1,17 @@
+# dmn-js library
+
+# Summary
+This is a forked version of the bpmn-io/dmn-js library specifically enhanced for implementing Decision Model and Notation (DMN) in admin interfaces. DMN is a standard notation for modeling and executing decision logic that business users and technical developers can understand.
+
+This fork maintains the core functionality of the original library while adding customizations for seamless integration with administrative interfaces. It provides a comprehensive solution for viewing, editing, and managing DMN 1.3 diagrams directly in the browser, allowing business users to define decision logic without requiring deep technical knowledge.
+
+Key features of this implementation:
+- Full support for DMN 1.3 standard
+- Interactive diagram editing capabilities
+- Customized UI components for admin integration
+- Simplified decision table management
+- Enhanced visualization options
+
 > __Starting with `dmn-js@8` the library displays and saves DMN 1.3 diagrams only.__ To open older DMN files, [migrate them](https://github.com/bpmn-io/dmn-migrate) before loading them with `dmn-js`.
 
 
